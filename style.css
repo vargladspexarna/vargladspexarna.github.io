@@ -1,0 +1,131 @@
+* {
+  font-family: verdana;
+}
+
+body {
+  background-color: black;
+}
+
+.spexbutton {
+  /* This is a class */
+  transition: all 0.4s ease 0s;
+  cursor: pointer;
+  padding: 5px;
+  width: 100%;
+  border: 1px solid #000000 !important;
+  text-align: left;
+  outline: none;
+  font-size: 14px;
+  border-radius: 10px;
+}
+
+#one.spexbutton{
+  background-color: black;
+  color: white;
+}
+#two.spexbutton{
+  background-color: white;
+  color: black
+}
+
+#two.song{
+  background-color: green;
+  color:black;
+}
+#one.songbutton{
+  background-color: black;
+  color: white;
+}
+#two.songbutton{
+  background-color: white;
+  color: black;
+}
+
+#one.active{
+  background-color: green;
+  color:black;
+}
+
+#two.active{
+  background-color: green;
+  color:black;
+}
+
+.songbutton {
+  /* This is a class */
+  transition: all 0.4s ease 0s;
+  cursor: pointer;
+  padding: 5px;
+  width: 100%;
+  border: 1px solid #000000 !important;
+  text-align: left;
+  outline: none;
+  font-size: 14px;
+  border-radius: 10px;
+}
+
+.active{
+  background-color: green;
+   color: white;
+    text-align: center;
+    border: 4px solid #000000 ;
+    border-radius: 10px;
+    font-weight: bold;
+}
+.content {
+  padding: 0 0px;
+  display: none;
+  overflow: hidden;
+  background-color: #000000;
+  border: 1px solid #000000 ;
+  border-radius: 10px;
+}
+
+
+.song{
+  color: white;
+}
+
+#navbar {
+  overflow: hidden;
+  background-color: #333;
+}
+
+#navbar a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+#navbar a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+#navbar a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+/* .content {
+  padding: 16px;
+} */
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%
+}
+
+.sticky + .content {
+  padding-top: 60px;
+}
+
+h2, h6 {
+  color: white;
+  font-weight: bold;
+}
