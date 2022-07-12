@@ -102,7 +102,22 @@ def genPage(showMelody=True, showYoutube=True):
     spexPlural = os.listdir(urlToSongs)
     test = [[j1, j2] for j1, j2 in zip(spexPlural, [re.search(r'\d\d\d\d', i).group(0) for i in spexPlural])]
 
-    test.sort(key=lambda t: t[1])
+    test = [[j1, j2, j3] for j1, j2, j3 in zip(spexPlural, [re.search(r'\d\d\d\d', i).group(0) for i in spexPlural], [re.findall(r"HT|VT|Kivik|Karnevalen", i)[0] for i in spexPlural])]
+
+
+
+    def SemOrder(sem):
+        if sem == "VT":
+            return 1
+        if sem == "Kivik":
+            return 2
+        if sem == "Karnevalen":
+            return 2
+        if sem == "HT":
+            return 3
+
+    test.sort(key=lambda t: (t[1], SemOrder(t[2])))
+
 
     spexCounter = 0
     spexDict = {}
@@ -111,7 +126,7 @@ def genPage(showMelody=True, showYoutube=True):
     sommarSpexCounter = 0
     karnevalsSpexCounter = 0
 
-    for spex, year in test:
+    for spex, year, sem in test:
         spexName = re.split(r'[(]', spex)[0]
         bigSpexCounter += 1
         if spexName not in spexDict.keys():
