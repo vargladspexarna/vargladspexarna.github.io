@@ -1,25 +1,26 @@
-import os, sys, re
+import os
+import platform
+import re
 from datetime import date
 from itertools import cycle
-import platform
 
 today = date.today()
 
-spexString ='''
+spexString = '''
 <button class="sp" id="one">SPEX</button>
 <div class="content">
 SONGS
 </div>
 '''
 
-spexString2 ='''
+spexString2 = '''
 <button class="sp" id="two">SPEX</button>
 <div class="content">
 SONGS
 </div>
 '''
 
-SS = cycle([spexString,spexString2])
+SS = cycle([spexString, spexString2])
 
 oneSong = '''
   <button class="sb" id="one">SONGTITLE</button>
@@ -41,10 +42,9 @@ titleBox = '''<button class="sb" style="background-color:black;color:white;text-
 <div class="song" id="three">
 </div>'''
 
-titleBox = ''
 
 def genPage(showMelody=True, showYoutube=True):
-    if platform.system() == 'Linux':
+    if platform.system() == 'Linux' or platform.system() == 'Darwin':
         wk_dir = os.path.dirname(os.path.realpath(__file__))+'/'
     elif platform.system() == 'Windows':
         wk_dir = os.path.dirname(os.path.realpath(__file__))+'/'
@@ -87,6 +87,7 @@ def genPage(showMelody=True, showYoutube=True):
         STRING = re.sub(r'Ü', '&Uuml', STRING)
         STRING = re.sub(r'10.16', '10.6.16', STRING)
         return STRING
+
     def replaceaao2(STRING):
         STRING = re.sub(r'ä', '%C3%A4', STRING)
         STRING = re.sub(r'å', '%C3%A5', STRING)
@@ -102,9 +103,8 @@ def genPage(showMelody=True, showYoutube=True):
     spexPlural = os.listdir(urlToSongs)
     test = [[j1, j2] for j1, j2 in zip(spexPlural, [re.search(r'\d\d\d\d', i).group(0) for i in spexPlural])]
 
-    test = [[j1, j2, j3] for j1, j2, j3 in zip(spexPlural, [re.search(r'\d\d\d\d', i).group(0) for i in spexPlural], [re.findall(r"HT|VT|Kivik|Karnevalen", i)[0] for i in spexPlural])]
-
-
+    test = [[j1, j2, j3] for j1, j2, j3 in zip(spexPlural, [re.search(r'\d\d\d\d', i).group(0) for i in spexPlural],
+                                               [re.findall(r"HT|VT|Kivik|Karnevalen", i)[0] for i in spexPlural])]
 
     def SemOrder(sem):
         if sem == "VT":
@@ -117,7 +117,6 @@ def genPage(showMelody=True, showYoutube=True):
             return 3
 
     test.sort(key=lambda t: (t[1], SemOrder(t[2])))
-
 
     spexCounter = 0
     spexDict = {}
@@ -142,7 +141,7 @@ def genPage(showMelody=True, showYoutube=True):
         spexCounter = spexDict[button]['num']
 
         currentSpexString = next(SS)
-        title ='<b>'+ str(spexCounter)+'</b>'+ '&nbsp'*5 + re.sub(r'[_]', ' ', button) + '&nbsp'*5 + '['
+        title = '<b>' + str(spexCounter) + '</b>' + '&nbsp' * 5 + re.sub(r'[_]', ' ', button) + '&nbsp' * 5 + '['
 
         storeSongs = []
         songCounter = 0
@@ -150,7 +149,7 @@ def genPage(showMelody=True, showYoutube=True):
 
             list_of_songs = os.listdir(song)
             list_of_songs = [i.split('.', maxsplit=1) for i in list_of_songs]
-            list_of_songs.sort(key=lambda x:int(x[0]))
+            list_of_songs.sort(key=lambda x: int(x[0]))
             list_of_songs = ['.'.join(i) for i in list_of_songs]
 
             y = re.findall(r'\d\d', song)[-1]
@@ -159,7 +158,7 @@ def genPage(showMelody=True, showYoutube=True):
 
             if sem == 'Karnevalen':
                 sem = 'K'
-                karnevalsSpexCounter +=1
+                karnevalsSpexCounter += 1
             elif sem == 'Kivik':
                 sommarSpexCounter += 1
                 sem = 'S'
@@ -175,24 +174,24 @@ def genPage(showMelody=True, showYoutube=True):
                 try:
                     sname = re.sub(r'\d+[.]\s', '', f.readlines(1)[0])
 
-                    songName = '<b>' + str(spexCounter) +  '.' + str(songCounter)  + '&nbsp'*5+ sname + '</b>'
+                    songName = '<b>' + str(spexCounter) + '.' + str(songCounter) + '&nbsp' * 5 + sname + '</b>'
                     songText = f.read()
                 except:
                     pass
                 f.close()
 
                 songText = re.sub(r'\n', '<br>', songText)
-                m = re.split(r'<br>',songText)
+                m = re.split(r'<br>', songText)
 
                 if showMelody == True:
                     if showYoutube == True:
                         search = re.split(' ', m[0])
-                        if search[0] == 'Melodi:' or search[0]=='melodi:':
+                        if search[0] == 'Melodi:' or search[0] == 'melodi:':
                             search.pop(0)
                         s1 = 'https://www.youtube.com/results?search_query='
                         s1 = s1 + '+'.join(search)
                         s1 = replaceaao2(s1)
-                        search = '<a href="' + s1+'" target="_blank">' + 'YouTube' + '</a>'
+                        search = '<a href="' + s1 + '" target="_blank">' + 'YouTube' + '</a>'
                     else:
                         search = ''
                     m[0] = '<i><b><small>' + m[0] + '</small></b></i><br>' + search
@@ -203,33 +202,32 @@ def genPage(showMelody=True, showYoutube=True):
                 currentSong = re.sub(r'SONGTITLE', songName, next(OS))
                 storeSongs.append(re.sub(r'SONGTEXT', songText, currentSong))
 
-        currentSpexString = re.sub(r'SPEX', title[:-2]+']', currentSpexString)
+        currentSpexString = re.sub(r'SPEX', title[:-2] + ']', currentSpexString)
         currentSpexString = re.sub(r'SONGS', ''.join(storeSongs), currentSpexString)
 
         monsterString += currentSpexString
         bigSongCounter += songCounter
 
-    #read webpage TEMPLATE
+    # read webpage TEMPLATE
     f = open(wk_dir + 'pageTemplate.html', 'r')
     webPageTemplate = f.read()
     f.close()
     print('Creating webpage template.')
-    webPageString = re.sub(r'MONSTERSTRINGHERE',monsterString, webPageTemplate)
+    webPageString = re.sub(r'MONSTERSTRINGHERE', monsterString, webPageTemplate)
 
     # HTML är ju kul. Ersätter åäö med kompatiblare tecken.
     webPageString = replaceaao(webPageString)
-    webPageString = re.sub(r'DATUM', 'Uppdaterad: {}'.format(today),webPageString)
-    webPageString = re.sub(r'DATUM', '',webPageString)
-    #write webpage FULL
-    webpageURL = wk_dir +'index.html'
+    webPageString = re.sub(r'DATUM', 'Uppdaterad: {}'.format(today), webPageString)
+    webPageString = re.sub(r'DATUM', '', webPageString)
+    # write webpage FULL
+    webpageURL = wk_dir + 'index.html'
     print('Writing webpage to file {}')
     w = open(webpageURL, 'w')
     w.write(webPageString)
     w.close()
     if 'webPage{}.html'.format(str(showMelody)) in os.listdir(wk_dir):
-        print('webPage{}.html'.format(str(showMelody))+'is in your working directory!')
+        print('webPage{}.html'.format(str(showMelody)) + 'is in your working directory!')
         print('All is well, enjoy your new webpage!')
-
 
     for spex in os.listdir(urlToSongs):
         for song in os.listdir(urlToSongs + spex):
@@ -239,8 +237,8 @@ def genPage(showMelody=True, showYoutube=True):
             f.close()
             m = re.sub(r'[/\n\.]', '-', m)
 
-            os.rename(urlToSongs + spex +'/' + song,
-                      urlToSongs + spex +'/' + digit + '.' + m + '.txt')
+            os.rename(urlToSongs + spex + '/' + song,
+                      urlToSongs + spex + '/' + digit + '.' + m + '.txt')
 
 
 genPage(showMelody=True, showYoutube=True)
