@@ -4,7 +4,17 @@ import re
 from datetime import date
 from itertools import cycle
 
+from importlib import reload
+import misc
+
+reload(misc)
+
+replaceaao = misc.replaceaao
+fix_youtube_url = misc.fix_youtube_url
+
 today = date.today()
+
+print("Today is:  {} \n".format(today))
 
 spexString = '''
 <button class="sp" id="one">SPEX</button>
@@ -36,14 +46,14 @@ oneSong2 = '''
   </div>
 
 '''
-OS = cycle([oneSong, oneSong2])
 
 titleBox = '''<button class="sb" style="background-color:black;color:white;text-align:left;font-weight:bold;font-size:20;">YEAR</button>
 <div class="song" id="three">
 </div>'''
 
+OS = cycle([oneSong, oneSong2])
 
-def genPage(showMelody=True, showYoutube=True):
+def genPage(showMelody=True, showYoutube=True, outputfile="index.html"):
     if platform.system() == 'Linux' or platform.system() == 'Darwin':
         wk_dir = os.path.dirname(os.path.realpath(__file__))+'/'
     elif platform.system() == 'Windows':
@@ -51,53 +61,16 @@ def genPage(showMelody=True, showYoutube=True):
         wk_dir = re.sub(r'[\]', '/', wk_dir)
 
     # wk_dir = input('Gief work directory')
-    print('Current wkdir is {}'.format(wk_dir))
-
+    print('You are using {} as working directory'.format(wk_dir))
     if 'songTXT' in os.listdir(wk_dir):
-        print('\n This folder contain songTXT. Good job!')
+        print('and this folder does indeed contain songTXT. Good job!')
     else:
-        print('\n This folder does not contain songTXT :(')
+        print('''BUT this folder does not contain songTXT :(
+                Aborting script. Please follow instructions in the readme.md files.''')
+        exit()
 
     urlToSongs = wk_dir + '/songTXT/'
     monsterString = ''
-
-    def replaceaao(STRING):
-        STRING = re.sub(r'ä', '&auml', STRING)
-        STRING = re.sub(r'å', '&aring', STRING)
-        STRING = re.sub(r'ö', '&ouml', STRING)
-        STRING = re.sub(r'Ä', '&Auml', STRING)
-        STRING = re.sub(r'Å', '&Aring', STRING)
-        STRING = re.sub(r'Ö', '&Ouml', STRING)
-        # Fuck you 2023
-        STRING = re.sub(r'202\s3', '2023', STRING)
-        STRING = re.sub(r'–', '-', STRING)
-        STRING = re.sub(r'é', '&eacute', STRING)
-        STRING = re.sub(r'’', '', STRING)
-        STRING = re.sub(r'´', '', STRING)
-        STRING = re.sub(r"æ", "&aelig;", STRING)
-        STRING = re.sub(r"ø", "&oslash;", STRING)
-        STRING = re.sub(r"å", "&aring;", STRING)
-        STRING = re.sub(r"Æ", "&AElig;", STRING)
-        STRING = re.sub(r"Ø", "&Oslash;", STRING)
-        STRING = re.sub(r"Å", "&Aring;", STRING)
-        STRING = re.sub(r'ß', '&szlig', STRING)
-        STRING = re.sub(r'ü', '&uuml', STRING)
-        STRING = re.sub(r'Ä', '&Auml', STRING)
-        STRING = re.sub(r'Ö', '&Ouml', STRING)
-        STRING = re.sub(r'Ü', '&Uuml', STRING)
-        STRING = re.sub(r'10.16', '10.6.16', STRING)
-        return STRING
-
-    def replaceaao2(STRING):
-        STRING = re.sub(r'ä', '%C3%A4', STRING)
-        STRING = re.sub(r'å', '%C3%A5', STRING)
-        STRING = re.sub(r'ö', '%C3%B6', STRING)
-        STRING = re.sub(r'Ä', '%C3%84', STRING)
-        STRING = re.sub(r'Å', '%C3%85', STRING)
-        STRING = re.sub(r'Ö', '%C3%96', STRING)
-        STRING = re.sub(r'–', '&ndash', STRING)
-        STRING = re.sub(r'é', '&eacute', STRING)
-        return STRING
 
     # sort those fuckers by year.
     spexPlural = os.listdir(urlToSongs)
@@ -190,7 +163,7 @@ def genPage(showMelody=True, showYoutube=True):
                             search.pop(0)
                         s1 = 'https://www.youtube.com/results?search_query='
                         s1 = s1 + '+'.join(search)
-                        s1 = replaceaao2(s1)
+                        s1 = fix_youtube_url(s1)
                         search = '<a href="' + s1 + '" target="_blank">' + 'YouTube' + '</a>'
                     else:
                         search = ''
@@ -208,26 +181,32 @@ def genPage(showMelody=True, showYoutube=True):
         monsterString += currentSpexString
         bigSongCounter += songCounter
 
-    # read webpage TEMPLATE
+    #read webpage TEMPLATE
     f = open(wk_dir + 'pageTemplate.html', 'r')
     webPageTemplate = f.read()
     f.close()
     print('Creating webpage template.')
-    webPageString = re.sub(r'MONSTERSTRINGHERE', monsterString, webPageTemplate)
+
+    webPageString = re.sub(r'MONSTERSTRINGHERE',monsterString, webPageTemplate)
 
     # HTML är ju kul. Ersätter åäö med kompatiblare tecken.
     webPageString = replaceaao(webPageString)
-    webPageString = re.sub(r'DATUM', 'Uppdaterad: {}'.format(today), webPageString)
-    webPageString = re.sub(r'DATUM', '', webPageString)
-    # write webpage FULL
-    webpageURL = wk_dir + 'index.html'
-    print('Writing webpage to file {}')
+    webPageString = re.sub(r'DATUM', 'Uppdaterad: {}'.format(today),webPageString)
+    webPageString = re.sub(r'DATUM', '',webPageString)
+    #write webpage FULL
+    webpageURL = wk_dir +outputfile
+
+    print('Attempting to write {}. \n\t Full path: {}'.format(outputfile, webpageURL))
     w = open(webpageURL, 'w')
     w.write(webPageString)
     w.close()
-    if 'webPage{}.html'.format(str(showMelody)) in os.listdir(wk_dir):
-        print('webPage{}.html'.format(str(showMelody)) + 'is in your working directory!')
-        print('All is well, enjoy your new webpage!')
+
+    if 'index.html':
+        print('index.html'.format(str(showMelody))+' is in your working directory!\n')
+        print('Double check that you are happy with the contents, and commit & push the repo :)\n')
+    else:
+        print('Something went wrong. Aborting script.')
+
 
     for spex in os.listdir(urlToSongs):
         for song in os.listdir(urlToSongs + spex):
@@ -237,8 +216,14 @@ def genPage(showMelody=True, showYoutube=True):
             f.close()
             m = re.sub(r'[/\n\.]', '-', m)
 
-            os.rename(urlToSongs + spex + '/' + song,
-                      urlToSongs + spex + '/' + digit + '.' + m + '.txt')
+            os.rename(urlToSongs + spex +'/' + song,
+                      urlToSongs + spex +'/' + digit + '.' + m + '.txt')
+    print("Some statistics:")
+    print("-------------------------")
+    print("\tThere are {} spex, and {} songs listed in total.".format(bigSpexCounter, bigSongCounter))
+    print("\tOut of these are {} first time spexes, and {} repeats".format(spexCounter, bigSpexCounter-spexCounter))
+    print("\tThe three most repeated spexes are:".format(spexCounter, bigSpexCounter-spexCounter))
+    print("-------------------------")
 
 
 genPage(showMelody=True, showYoutube=True)
