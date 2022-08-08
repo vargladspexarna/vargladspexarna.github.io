@@ -37,3 +37,6 @@ def fix_youtube_url(STRING):
     STRING = re.sub(r'–', '&ndash', STRING)
     STRING = re.sub(r'é', '&eacute', STRING)
     return STRING
+
+def extractNum(entry):
+    return int(re.findall(r"\d+", entry)[0])

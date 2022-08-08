@@ -19,6 +19,31 @@ body {
   border-radius: 10px;
 }
 
+.blocker {
+  transition: all 0.4s ease 0s;
+  cursor: pointer;
+  padding: 5px;
+  width: 100%;
+  border: 1px solid #000000 !important;
+  text-align: left;
+  outline: none;
+  font-size: 14px;
+  border-radius: 10px;
+}
+
+.empty {
+  /* This is a class */
+  transition: all 0.4s ease 0s;
+  cursor: pointer;
+  padding: 5px;
+  width: 100%;
+  border: 1px solid #000000 !important;
+  text-align: left;
+  outline: none;
+  font-size: 14px;
+  border-radius: 10px;
+}
+
 #one.spexbutton{
   background-color: black;
   color: white;
@@ -28,6 +53,10 @@ body {
   color: black
 }
 
+#two.song{
+  background-color: green;
+  color:black;
+}
 #two.song{
   background-color: green;
   color:black;

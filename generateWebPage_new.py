@@ -3,34 +3,38 @@ import platform
 import re
 from datetime import date
 from itertools import cycle
-
 from importlib import reload
+
 import misc
-
 reload(misc)
-
-def extractNum(entry):
-    return int(re.findall(r"\d+", entry)[0])
 
 replaceaao = misc.replaceaao
 fix_youtube_url = misc.fix_youtube_url
+extractNum = misc.extractNum
 
 today = date.today()
-
 print("Today is:  {} \n".format(today))
 
+# ╒══════════════════════════════════════════════════════════════════════════╕
+# │ Cycle arrays. Used e.g for alternating black/white song/spex background. │
+# └──────────────────────────────────────────────────────────────────────────┘
 bigSpexButtonIDs = cycle(["two","one"])
 songCycle = cycle(["two","one"])
 
+# ╒═══════════════════════════════════════════════════════════════════════════╕
+# │ Automatically find the curret work directory. All files must be relative. │
+# └───────────────────────────────────────────────────────────────────────────┘
 wk_dir = os.path.dirname(os.path.realpath(__file__))+'/'
 
+
+# ╒════════════════════════════════════╕
+# │ Starting to define functions here. │
+# └────────────────────────────────────┘
 def getSpexSets(spex):
     '''
-    Extracts every set (1998 VT, 2002 VT...) for a given spex
-    and returns a more readable format (VT98, VT02...)
-
-    Will be used for the big spexbutton
-    E.g., [   1. Karnevalssaga (VT98, VT02..)    ]
+    ╔───────────────────────────────────────────────────────────────╗
+    │ Creates the string (VT98, VT02...) for each folder in a spex. │
+    ╚───────────────────────────────────────────────────────────────╝
     '''
 
     sortedYear = os.listdir(os.path.join(wk_dir, "sparmen", spex))
@@ -38,6 +42,9 @@ def getSpexSets(spex):
 
     string_part_sets  = "("
 
+    # ╒══════════════════════════════════════════════════════════════╕
+    # │ Ugliest but most important. Turns 2002 to 02 and 1998 to 98. │
+    # └──────────────────────────────────────────────────────────────┘
     for year in sortedYear:
         temp = year.split("_")
         string_part_sets +=temp[1] + temp[0][2:]+", "
@@ -45,60 +52,90 @@ def getSpexSets(spex):
     string_part_sets = string_part_sets[:-2]
     string_part_sets += ")"
 
+    # ╒══════════════════════════════════════════════════════════════════════════╕
+    # │ RexEx to transform naming convention in 'sparmen/spex' to shorter format │
+    # └──────────────────────────────────────────────────────────────────────────┘
     string_part_sets = re.sub(r"Kivik", "S", string_part_sets)
     string_part_sets = re.sub(r"Karnevalen", "K", string_part_sets)
 
+    # ╒════════════════════════════════════════════╕
+    # │ Final touches to make spexTITLE look nice. │
+    # └────────────────────────────────────────────┘
     title = re.sub(r"[_]", ". ", spex) + " " + string_part_sets
 
     return title
 
 def createDivForMain():
+    '''
+    ╔─────────────────────────────────────────────────────────╗
+    │ Div*Main wraps almost everything apart from the header. │
+    ╚─────────────────────────────────────────────────────────╝
+    '''
+    
+    # ╒════════════════════════════════════════════════════════════════════╕
+    # │ Sorts all spex in 'sparmen' based on numbering via func-extractNum │
+    # └────────────────────────────────────────────────────────────────────┘
     sortedSpex = os.listdir(os.path.join(wk_dir, "sparmen"))
     sortedSpex.sort(key=extractNum)
 
     stringDivMain = ""
 
     for spex in sortedSpex:
+        # ╒═══════════════════════════════════════════════════════════════════╕
+        # │ Cyclically add Spex*Button [Title] for expanding Spex*Div [Songs] │
+        # └───────────────────────────────────────────────────────────────────┘
         stringDivMain += createBigSpexButton(spex)
         stringDivMain += createDivForSpex(spex)
 
-    stringDivMain ='''
-        {}
-        '''.format(stringDivMain)
-
+    # ╒═════════════════════════════════════════╕
+    # │ Return Div*Main, the outermost wrapper. │
+    # └─────────────────────────────────────────┘
     return createDivMain(stringDivMain)
 
-
-
 def createBigSpexButton(spex):
-    spexTITLE = getSpexSets(spex)
+    '''
+    ╔────────────────────────────────────────────────────────────╗
+    │ Button with [SpexTitle] - used to expand/collapse Div*Spex │
+    ╚────────────────────────────────────────────────────────────╝
+    '''
+    
+    spexTITLE = getSpexSets(spex) # E.g., "1. En Karnevalssaga (VT98, VT02..)"
 
+    # ╒═══════════════════════════════════════════════════════════════════════╕
+    # │ ButtonString. Cycles to the next button style (one/two - black/white) │
+    # └───────────────────────────────────────────────────────────────────────┘
     spexString = '''
     <button class="sp" id="{}">{}</button>
     '''.format(next(bigSpexButtonIDs), spexTITLE)
+
     return spexString
 
 def createDivForSpex(spex):
     '''
-    This function creates 
+    ╔───────────────────────────────────────────────────────────────────────────╗
+    │ Div*Spex contains all Year*Buttons, Song*Buttons and expandable Div*Songs │
+    ╚───────────────────────────────────────────────────────────────────────────╝
     '''
+
+    # ╒═══════════════════════════════════════════════════════╕
+    # │ Sorts songs according to numbering in 'sparmen/spex/' │
+    # └───────────────────────────────────────────────────────┘
     sortedYears = os.listdir(os.path.join(wk_dir, "sparmen", spex)) 
     sortedYears.sort(key=extractNum)
 
     spexDIV = ""
 
     for year in sortedYears:
-
-        yearString = createYearButton(spex, year)
-        yearString += createDivForSongs(spex, year)
+        # ╒═══════════════════════════════════════════════════════════════╕
+        # │ Cyclically adds Year+Song*Buttons which expands each Song*Div │
+        # └───────────────────────────────────────────────────────────────┘
         
-        spexDIV += yearString
-    
-    spexDIV += createBlocker()
+        yearString =  createYearButton(spex, year)
+        yearString += createDivForSongs(spex, year)
 
-    spexDIV = '''
-        {}
-        '''.format(spexDIV)
+        spexDIV += yearString
+
+    spexDIV += createBlocker() # Marks end of spex
 
     spexDIV = '''
         <div class="content">
@@ -109,19 +146,35 @@ def createDivForSpex(spex):
     return spexDIV
 
 def createBlocker():
+    '''
+    ╔────────────────────────────────────────────────────────────────────────╗
+    │ createBlockers only function is to add a colored line at "End of Spex" │
+    ╚────────────────────────────────────────────────────────────────────────╝
+    '''
+    
     blockerSTRING = '''<button class="sb"
-    style="background-color:green;color:white;text-align:left;font-weight:bold;font-size:2;"></button>
+    style="background-color:orange;color:white;text-align:left;font-weight:bold;font-size:2;"></button>
     '''
     return blockerSTRING
 
 
 def createYearButton(spex, year):
+    '''
+    ╔───────────────────────────────────────────────────────────────────────╗
+    │ function which creates a given Year*Button (it has zero functionality │
+    ╚───────────────────────────────────────────────────────────────────────╝
+    '''
+    
+    # ╒════════════════════════════════════════════════════════════════════╕
+    # │ RegEx to extract yearTITLE (e.g 2002) from 'sparmen/spex/year_sem' │
+    # └────────────────────────────────────────────────────────────────────┘
     yearTITLE = re.sub(r"_.+", " ", year)
     yearTITLE = re.sub(r"[-]*.txt", "", yearTITLE)
 
     titleBox = '''<button class="sb"
     style="background-color:#1a1a1a;color:white;text-align:left;font-weight:bold;font-size:20;border-left:2px-solid-red;">{}</button>
-    '''.format(yearTITLE)
+    <div class="empty" id="three"></div>'''.format(yearTITLE)
+
     return titleBox
 
 def createSongButton(title):
@@ -131,6 +184,15 @@ def createSongButton(title):
     return oneSong
 
 def createDivForSong(text):
+    '''
+    ╔────────────────────────────────────────────────────────────────────╗
+    │ Song*Div which contains lyrics, melody etc. The innermost wrapper. │
+    ╚────────────────────────────────────────────────────────────────────╝
+    '''
+    
+    # ╒══════════════════════════════════════════════════════════╕
+    # │ class="song" is used for styling purposes with CSS later │
+    # └──────────────────────────────────────────────────────────┘
     div =  '''
           <div class="song">
             {}
@@ -140,37 +202,57 @@ def createDivForSong(text):
         div = div.format(text)
     except:
         print("createDivForSong failed for:\n {}   {}   {}".format(spex, year, song))
+
     return div
 
 def createDivForSongs(spex, year):
     sortedSongs = os.listdir(os.path.join(wk_dir, "sparmen", spex, year)) 
     sortedSongs.sort(key=extractNum)
 
-    songDIV = ""
+    yearDIV = ""
+
     for song in sortedSongs:
-        # print(spex, year, song)
         songURL = os.path.join(wk_dir, "sparmen", spex, year, song)
+       
+        # ╒═════════════════════════════════════════════════════════╕
+        # │ RegEx which extracts songTITLE from 'sparmen/spex/year' │
+        # └─────────────────────────────────────────────────────────┘
         songTITLE = re.sub(r"_", ". ", song)
         songTITLE = re.sub(r"[-]*.txt", "", songTITLE)
 
+        # ╒══════════════════════════════════════════════╕
+        # │ Reads the songTXT from the local harddrive   │
+        # └──────────────────────────────────────────────┘
         f = open(songURL, "r+")
         songTXT = f.read()
         f.close()
+
+        # ╒══════════════════════════════════════════════════════════╕
+        # │ Replace \n with HTML-compatible <br> throughout the song │
+        # └──────────────────────────────────────────────────────────┘
         songTXT = re.sub(r'\n', '<br>', songTXT)
         
-        # Create song button 
-        songDIV += createSongButton(songTITLE)
+        # ╒════════════════════════════════════════════╕
+        # │ Cyclically create Song*Button and Song*Div │
+        # └────────────────────────────────────────────┘
+        yearDIV += createSongButton(songTITLE)
+        yearDIV += createDivForSong(songTXT)
 
-        # Create song container
-        songDIV += createDivForSong(songTXT)
-
+    # ╒════════════════════════════════════════════════════════════════════╕
+    # │ spexstring should contain all years - which in turn are in yearDIV │
+    # └────────────────────────────────────────────────────────────────────┘
     spexString = '''
         {}
         '''
 
-    return spexString.format(songDIV)
+    return spexString.format(yearDIV)
 
 def createDivMain(content):
+    '''
+    ╔─────────────────────────────────────────────────────────╗
+    │ Div*Main wraps almost everything apart from the header. │
+    ╚─────────────────────────────────────────────────────────╝
+    '''
 
     divString = '''
         <div class="main">
