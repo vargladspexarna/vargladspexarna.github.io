@@ -1,4 +1,4 @@
-Bytt är bytt-kuplett
+<b>Bytt är bytt-kuplett</b>
 Melodi: Kung för en dag (Magnus Uggla)
 
 (Francis) Jag ska äntligen få sjunga
@@ -37,3 +37,6 @@ Vi är sprängkraft som pulserar
 (F) Jag tar ton (J) och jag gevären
 Båda Det är värt att byta lag för en dag
 Om man får hitta sitt nya jag!
+
+
+

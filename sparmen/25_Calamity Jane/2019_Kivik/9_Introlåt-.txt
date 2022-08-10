@@ -1,4 +1,4 @@
-Introlåt
+<b>Introlåt</b>
 Melodi: Vart jag mig i världen vänder
 
 Oh, nu så ska vi ta er med till västern en vända
@@ -18,3 +18,6 @@ Han ska klå tre banditer, oh va han sliter
 Nej här ska ju ingen få röka minsann
 Han tar till alla medel, gör allt vad han kan
 Hej stig på…
+
+
+

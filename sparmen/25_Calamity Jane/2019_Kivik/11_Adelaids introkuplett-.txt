@@ -1,4 +1,4 @@
-Adelaids introkuplett
+<b>Adelaids introkuplett</b>
 Melodi: Vill ni se en stjärna
 
 Vill ni ha en diva
@@ -15,3 +15,6 @@ Fel av dig
 Himlakropp jag hava
 Jag badar helst i cava
 Så vill ni ha en diva, ring till mig!
+
+
+

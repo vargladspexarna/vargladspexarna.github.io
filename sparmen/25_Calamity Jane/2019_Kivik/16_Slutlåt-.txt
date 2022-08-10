@@ -1,4 +1,4 @@
-Slutlåt
+<b>Slutlåt</b>
 Melodi: Cotton eye joe
 
 Nu är hela spexet slut
@@ -17,3 +17,6 @@ Nu är hela spexet slut
 Det är dax att vandra ut
 Freden är säkrad, tobaken slut
 Västern är räddat, ta och njut!
+
+
+

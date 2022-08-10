@@ -1,4 +1,4 @@
-Jag är rökt-kuplett
+<b>Jag är rökt-kuplett</b>
 Melodi:
 
 Första juli då sade jag
@@ -27,3 +27,6 @@ Jag vill ha ett bloss! SNÄLLA!
 Ge mig nikotin! SNÄLLA!
 Annars går jag upp i rök!
 Annars går jag upp i rök!
+
+
+

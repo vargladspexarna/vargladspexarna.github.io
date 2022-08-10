@@ -263,23 +263,24 @@ def createDivMain(content):
     return divString
 
 
-f = open(wk_dir + 'pageTemplate.html', 'r')
-webPageTemplate = f.read()
-f.close()
+def createFullWebPage(wk_dir = wk_dir, targetFile = "index.html"):
+    f = open(wk_dir + 'pageTemplate.html', 'r')
+    webPageTemplate = f.read()
+    f.close()
 
-webPageString = re.sub(r'MONSTERSTRINGHERE', createDivForMain() , webPageTemplate)
-webPageString = replaceaao(webPageString)
-webPageString = re.sub(r'DATUM', 'Uppdaterad: {}'.format(today),webPageString)
+    webPageString = re.sub(r'MONSTERSTRINGHERE', createDivForMain() , webPageTemplate)
+    webPageString = replaceaao(webPageString)
+    webPageString = re.sub(r'DATUM', 'Uppdaterad: {}'.format(today),webPageString)
 
-targetURL = os.path.join(wk_dir, "index.html")
+    targetURL = os.path.join(wk_dir, "index.html")
 
-print('Attempting to write {}. \n\t Full path: {}'.format("index.html",
-    targetURL))
+    print('Attempting to write {}. \n\t Full path: {}'.format("index.html",
+        targetURL))
 
-w = open(targetURL, 'w')
-w.write(webPageString)
-w.close()
+    w = open(targetURL, 'w')
+    w.write(webPageString)
+    w.close()
 
-exit()
-
+if __name__ == "__main__":
+    createFullWebPage()
 

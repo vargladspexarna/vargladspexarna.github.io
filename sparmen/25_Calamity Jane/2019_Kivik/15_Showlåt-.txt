@@ -1,4 +1,4 @@
-Showlåt
+<b>Showlåt</b>
 Melodi: I will survive
 
 (Francis):
@@ -53,3 +53,6 @@ annanstans.
 Vi ändrar om och kör duett, det känns helt igenom
 rätt
 Allt med brilljans, extravagans och flambojans
+
+
+

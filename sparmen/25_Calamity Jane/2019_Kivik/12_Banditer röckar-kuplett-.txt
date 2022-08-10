@@ -1,4 +1,4 @@
-Banditer röckar-kuplett
+<b>Banditer röckar-kuplett</b>
 Melodi: Hooked on a Feeling
 
 Livet som banditer var rätt lugnt förut
@@ -24,3 +24,6 @@ Vi ser till att luften ska va fri
 Vi är tre bandidos
 Vi tar oss ett stort bloss
 Från morgon till skymningen!
+
+
+
