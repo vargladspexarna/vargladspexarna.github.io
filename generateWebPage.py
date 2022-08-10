@@ -5,12 +5,12 @@ from datetime import date
 from itertools import cycle
 from importlib import reload
 
-import misc
-reload(misc)
+import utility.misc
+reload(utility.misc)
 
-replaceaao = misc.replaceaao
-fix_youtube_url = misc.fix_youtube_url
-extractNum = misc.extractNum
+replaceaao = utility.misc.replaceaao
+fix_youtube_url = utility.misc.fix_youtube_url
+extractNum = utility.misc.extractNum
 
 today = date.today()
 print("Today is:  {} \n".format(today))
