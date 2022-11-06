@@ -214,11 +214,6 @@ def createDivForSongs(spex, year):
     for song in sortedSongs:
         songURL = os.path.join(wk_dir, "sparmen", spex, year, song)
        
-        # ╒═════════════════════════════════════════════════════════╕
-        # │ RegEx which extracts songTITLE from 'sparmen/spex/year' │
-        # └─────────────────────────────────────────────────────────┘
-        songTITLE = re.sub(r"_", ". ", song)
-        songTITLE = re.sub(r"[-]*.txt", "", songTITLE)
 
         # ╒══════════════════════════════════════════════╕
         # │ Reads the songTXT from the local harddrive   │
@@ -226,6 +221,15 @@ def createDivForSongs(spex, year):
         f = open(songURL, "r+")
         songTXT = f.read()
         f.close()
+
+        # ╒═════════════════════════════════════════════════════════╕
+        # │ RegEx which extracts songTITLE from 'sparmen/spex/year' │
+        # └─────────────────────────────────────────────────────────┘
+
+        firstLine = songTXT.split("\n")
+        firstLine = firstLine[0]
+        songTITLE = re.sub(r".txt", ". " + firstLine, song)
+        # songTITLE = firstLine
 
         # ╒══════════════════════════════════════════════════════════╕
         # │ Replace \n with HTML-compatible <br> throughout the song │
