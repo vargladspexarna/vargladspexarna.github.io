@@ -14,6 +14,7 @@ Minsann
 Man blir så glad sa Susanne
 Det samma sa Åke
 Om karaoke
+
 För alla har vi haft ett mål
 Att bli idol
 Tänka att någon gång få vara stjärna
@@ -21,7 +22,9 @@ Tänka att någon gång få vara stjärna
 Ha mikrofon
 Höra jublet på scen genom ridån
 Nananananananananananana–
-(Jump!)
+
+<i>(Jump!)</i>
+
 Ja sa har! Hai!
 Jag ville bli stjärna (å spela gitarr)
 Mor sa nai! Nai!
@@ -34,7 +37,9 @@ Så jag läste en brevkurs
 Å öva i våran dusch!
 Kareoke kareoke kareoke
 Kareoke kareoke kareoke
-(Y.M.C.A)
+
+<i>(Y.M.C.A)</i>
+
 Kareoke kareoke kareoke
 Kareoke kareoke kareoke
 När du är ute på galej! Så säg
