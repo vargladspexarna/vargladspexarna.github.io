@@ -214,11 +214,11 @@ def createDivForSongs(spex, year):
     for song in sortedSongs:
         songURL = os.path.join(wk_dir, "sparmen", spex, year, song)
        
-
+        print(songURL)
         # ╒══════════════════════════════════════════════╕
         # │ Reads the songTXT from the local harddrive   │
         # └──────────────────────────────────────────────┘
-        f = open(songURL, "r+")
+        f = open(songURL, "r+", encoding="utf8")
         songTXT = f.read()
         f.close()
 
@@ -281,7 +281,7 @@ def createFullWebPage(wk_dir = wk_dir, targetFile = "index.html"):
     print('Attempting to write {}. \n\t Full path: {}'.format("index.html",
         targetURL))
 
-    w = open(targetURL, 'w')
+    w = open(targetURL, 'w', encoding="utf8")
     w.write(webPageString)
     w.close()
 
