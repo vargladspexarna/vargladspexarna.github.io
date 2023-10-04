@@ -1,159 +1,117 @@
 <!DOCTYPE html>
-<html>
+<html lang="sv-se">
 <head>
-<style type="text/css">
-* {
-  font-family: verdana;
-}
+    <style>
+        * {
+            font-family: verdana, serif;
+        }
 
-body {
-  background-color: black;
-}
+        body {
+            background-color: black;
+        }
 
-.sp {
-  /* This is a class */
-  transition: all 0.4s ease 0s;
-  cursor: pointer;
-  padding: 5px;
-  width: 100%;
-  border: 1px solid #000000 !important;
-  text-align: left;
-  outline: none;
-  font-size: 14px;
-  border-radius: 10px;
-}
+        .sp {
+            transition: all 0.4s ease 0s;
+            cursor: pointer;
+            padding: 5px;
+            width: 100%;
+            border: 1px solid #000000 !important;
+            text-align: left;
+            outline: none;
+            font-size: 14px;
+            border-radius: 10px;
+        }
 
-#one.sp{
-  background-color: black;
-  color: white;
-}
-#two.sp{
-  background-color: white;
-  color: black
-}
+        #one.sp {
+            background-color: black;
+            color: white;
+        }
 
-#two.song{
-  background-color: green;
-  color:black;
-}
-#one.sb{
-  background-color: black;
-  color: white;
-}
-#two.sb{
-  background-color: white;
-  color: black;
-}
+        #two.sp {
+            background-color: white;
+            color: black
+        }
 
-#one.ac{
-  background-color: green;
-  color:black;
-}
-#two.ac{
-  background-color: green;
-  color:black;
-}
-.sb {
-  /* This is a class */
-  transition: all 0.4s ease 0s;
-  cursor: pointer;
-  padding: 5px;
-  width: 100%;
-  border: 1px solid #000000 !important;
-  text-align: left;
-  outline: none;
-  font-size: 14px;
-  border-radius: 10px;
-}
+        #two.song {
+            background-color: green;
+            color: black;
+        }
 
-.ac{
-  background-color: green;
-   color: white;
-    text-align: center;
-    border: 4px solid #000000 ;
-    border-radius: 10px;
-    font-weight: bold;
-}
-.content {
-  padding: 3px;
-  display: none;
-  overflow: hidden;
-  background-color: #000000;
-  border-left: 2px solid green;
-  border-right: 2px solid green;
-  border-top: 2px solid green;
-  border-bottom: 2px solid green;
-  border-radius: 10px;
-}
+        #one.sb {
+            background-color: black;
+            color: white;
+        }
 
-.song{
-  color: white;
-  padding-left:10px;
-  padding-top:10px;
-  background-color: #000000;
-  border-left: 2px  solid red;
-  border-right: 2px solid red;
-  border-top: 2px solid red;
-  border-bottom: 2px solid red;
-  border-radius: 10px;
-}
+        #two.sb {
+            background-color: white;
+            color: black;
+        }
 
-#navbar {
-  overflow: hidden;
-  background-color: #333;
-}
+        #one.ac {
+            background-color: green;
+            color: black;
+        }
 
+        #two.ac {
+            background-color: green;
+            color: black;
+        }
 
+        .sb {
+            transition: all 0.4s ease 0s;
+            cursor: pointer;
+            padding: 5px;
+            width: 100%;
+            border: 1px solid #000000 !important;
+            text-align: left;
+            outline: none;
+            font-size: 14px;
+            border-radius: 10px;
+        }
 
-/* .content {
-  padding: 16px;
-} */
+        .content {
+            padding: 3px;
+            display: none;
+            overflow: hidden;
+            background-color: #000000;
+            border-left: 2px solid green;
+            border-right: 2px solid green;
+            border-top: 2px solid green;
+            border-bottom: 2px solid green;
+            border-radius: 10px;
+        }
 
-.sticky {
-  position: fixed;
-  top: 0;
-  width: 100%
-}
+        .song {
+            color: white;
+            padding-left: 10px;
+            padding-top: 10px;
+            background-color: #000000;
+            border-left: 2px solid red;
+            border-right: 2px solid red;
+            border-top: 2px solid red;
+            border-bottom: 2px solid red;
+            border-radius: 10px;
+        }
 
-.sticky + .content {
-  padding-top: 0px;
-}
+        #navbar {
+            overflow: hidden;
+            background-color: #333;
+        }
 
-h2, h6 {
-  color: white;
-  font-weight: bold;
-}
+        .sticky + .content {
+            padding-top: 0px;
+        }
 
-.inac{
-  background-color: #333;
-  color: gray;
-  font-weight: bold;
-  border-radius: 10px;
-}
+        h2, h6 {
+            color: white;
+            font-weight: bold;
+        }
+    </style>
 
-.inac{
-  background-color: #333;
-  color: gray;
-  font-weight: bold;
-  border-radius: 10px;
-}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
 
-.inac{
-  background-color: #333;
-  color: gray;
-  font-weight: bold;
-  border-radius: 10px;
-}
-
-</style>
-
-
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-
-
-
-<title>Songs to fill the void</title>
+    <title>Spärmen</title>
 </head>
 
 <body onscroll="navBar()">
@@ -165,84 +123,81 @@ h2, h6 {
 MONSTERSTRINGHERE
 
 <script>
-  var spex = document.getElementsByClassName("sp");
-  var sbs =  document.getElementsByClassName("sb");
-  var songs =  document.getElementsByClassName("song");
+    const spex = document.querySelectorAll(".sp");
+    const sbs = document.querySelectorAll(".sb");
+    const songs = document.querySelectorAll(".song");
 
-for (i = 0; i < spex.length; i++) {
-  spex[i].addEventListener("click", function() {
-    for (m = 0; m < sbs.length; m++) {
-      if( sbs[m].classList.contains("ac")) {sbs[m].classList.toggle("ac")} else {}}
-      for (m = 0; m < songs.length; m++) {
-        songs[m].style.display = "none";}
+    spex.forEach((sp) => {
+        sp.addEventListener("click", function () {
+            sbs.forEach((sb) => {
+                if (sb.classList.contains("ac")) {
+                    sb.classList.toggle("ac");
+                }
+            });
 
-      var isac = this.classList.contains("ac");
+            songs.forEach((song) => {
+                song.style.display = "none";
+            });
 
-      for (k = 0; k < spex.length; k++) {
-      if ( spex[k].classList.contains("ac")) { spex[k].classList.toggle("ac"); }  else {} }
+            spex.forEach((sp) => {
+                if (sp.classList.contains("ac")) {
+                    sp.classList.toggle("ac");
+                }
+            });
 
-      if (isac) {} else{this.classList.toggle("ac");}
+            const content = this.nextElementSibling;
+            const temp = content.style.display;
 
-      var content = this.nextElementSibling;
+            spex.forEach((sp) => {
+                const content2 = sp.nextElementSibling;
+                content2.style.display = "none";
+            });
 
-      var temp = content.style.display
+            if (temp === "block") {
+                content.style.display = "none";
+            } else {
+                content.style.display = "block";
+            }
 
-      for (m = 0; m < spex.length; m++) {
-        var content2 = spex[m].nextElementSibling;
-        content2.style.display =  "none";
-      }
-
-      if (temp === "block") {
-        content.style.display = "none";
-      } else {
-        content.style.display = "block";
-      }
-
-      // content.style.display = "block";
-    for (j = 0; j < songs.length; j++) {
-      songs[j].style.display = "none";}
+            songs.forEach((song) => {
+                song.style.display = "none";
+            });
+        });
     });
-  }
 
-  for (j = 0; j < sbs.length; j++) {
-    sbs[j].addEventListener("click", function() {
+    sbs.forEach((sb) => {
+        sb.addEventListener("click", function () {
+            sbs.forEach((sb) => {
+                if (sb.classList.contains("ac")) {
+                    sb.classList.toggle("ac");
+                }
+            });
 
-      var isac = this.classList.contains("ac")
+            const content = this.nextElementSibling;
+            const temp = content.style.display;
 
-      for (m = 0; m < sbs.length; m++) {
-        if( sbs[m].classList.contains("ac")) {sbs[m].classList.toggle("ac")} else {}}
-      if (isac){} else{this.classList.toggle("ac");}
+            songs.forEach((song) => {
+                song.style.display = "none";
+            });
 
-      var content = this.nextElementSibling;
-
-      var temp = content.style.display
-
-      for (m = 0; m < songs.length; m++) {
-
-        songs[m].style.display = "none";}
-
-
-      // document.getElementById("song").style.display = "none";
-
-      if (temp === "block") {
-        content.style.display = "none";
-      } else {
-        content.style.display = "block";
-      }
+            if (temp === "block") {
+                content.style.display = "none";
+            } else {
+                content.style.display = "block";
+            }
+        });
     });
-  }
 
+    const navbar = document.getElementById("navbar");
+    const sticky = navbar.offsetTop;
 
-  var navbar = document.getElementById("navbar");
-  var sticky = navbar.offsetTop;
-
-  function navBar() {
-    if (window.pageYOffset >= sticky) {
-    navbar.classList.add("sticky")
-    } else {
-    navbar.classList.remove("sticky");
+    function navBar() {
+        if (window.pageYOffset >= sticky) {
+            navbar.classList.add("sticky")
+        } else {
+            navbar.classList.remove("sticky");
+        }
     }
-  }
 
 </script>
 </body>
