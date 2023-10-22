@@ -105,7 +105,7 @@ def createBigSpexButton(spex):
     # │ ButtonString. Cycles to the next button style (one/two - black/white) │
     # └───────────────────────────────────────────────────────────────────────┘
     spexString = '''
-    <button class="sp" id="{}">{}</button>
+    <button class="sp {}">{}</button>
     '''.format(next(bigSpexButtonIDs), spexTITLE)
 
     return spexString
@@ -173,13 +173,13 @@ def createYearButton(spex, year):
 
     titleBox = '''<button class="sb"
     style="background-color:#1a1a1a;color:white;text-align:left;font-weight:bold;font-size:20;border-left:2px-solid-red;">{}</button>
-    <div class="empty" id="three"></div>'''.format(yearTITLE)
+    <div class="empty three"></div>'''.format(yearTITLE)
 
     return titleBox
 
 def createSongButton(title):
     oneSong = '''
-      <button class="sb" id="{}">{}</button>
+      <button class="sb {}">{}</button>
     '''.format(next(songCycle), title)
     return oneSong
 
