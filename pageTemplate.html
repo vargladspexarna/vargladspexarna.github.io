@@ -22,37 +22,37 @@
             border-radius: 10px;
         }
 
-        #one.sp {
+        .one.sp {
             background-color: black;
             color: white;
         }
 
-        #two.sp {
+        .two.sp {
             background-color: white;
             color: black
         }
 
-        #two.song {
+        .two.song {
             background-color: green;
             color: black;
         }
 
-        #one.sb {
+        .one.sb {
             background-color: black;
             color: white;
         }
 
-        #two.sb {
+        .two.sb {
             background-color: white;
             color: black;
         }
 
-        #one.ac {
+        .one.ac {
             background-color: green;
             color: black;
         }
 
-        #two.ac {
+        .two.ac {
             background-color: green;
             color: black;
         }
@@ -121,7 +121,7 @@
 <body onscroll="navBar()">
 
 <h2>S&aringngp&aumlrm</h2>
-<h6>S = Sommarspex, K = Karneval, E = SAKNAS</h6>
+<h6>S = Sommarspex, K = Karneval</h6>
 <h6>DATUM</h6>
 
 MONSTERSTRINGHERE
@@ -193,10 +193,10 @@ MONSTERSTRINGHERE
     });
 
     const navbar = document.getElementById("navbar");
-    const sticky = navbar.offsetTop;
+    const sticky = navbar?.offsetTop;
 
     function navBar() {
-        if (window.pageYOffset >= sticky) {
+        if (sticky && window.pageYOffset >= sticky) {
             navbar.classList.add("sticky")
         } else {
             navbar.classList.remove("sticky");
