@@ -1,4 +1,4 @@
-﻿#  Var GladSpexarnas Spärm
+﻿#  Var GladSpexarnas Spärm 🍍
 
 Spärmen i den *digitala* eran!
 
