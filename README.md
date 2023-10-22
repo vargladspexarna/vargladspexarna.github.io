@@ -30,8 +30,9 @@ För att lägga till en låt eller spex. Modifiera mappen [sparmen](https://gith
 **Låtstruktur**
  - Varje låt har en titel och melodi som första stycke
  - Texten är radbruten för att göra det enklare att sjunga
+ - Låtens titel ska skrivas inom html bold taggar för fetstil.
  
-> <b>Kålossal svanesång</b>
+> &lt;b&gt;Kålossal svanesång&lt;/b&gt;
 >
 >  Melodi: Havet är Djupt
 
