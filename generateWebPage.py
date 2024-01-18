@@ -85,7 +85,6 @@ def createDivForMain():
         # │ Cyclically add Spex*Button [Title] for expanding Spex*Div [Songs] │
         # └───────────────────────────────────────────────────────────────────┘
         stringDivMain += createBigSpexButton(spex)
-        stringDivMain += createDivForSpex(spex)
 
     # ╒═════════════════════════════════════════╕
     # │ Return Div*Main, the outermost wrapper. │
@@ -105,8 +104,11 @@ def createBigSpexButton(spex):
     # │ ButtonString. Cycles to the next button style (one/two - black/white) │
     # └───────────────────────────────────────────────────────────────────────┘
     spexString = '''
-    <button class="sp {}">{}</button>
-    '''.format(next(bigSpexButtonIDs), spexTITLE)
+    <details class="sp {}">
+        <summary style="list-style: none; padding: 5px">{}</summary>
+        {}
+    </details>
+    '''.format(next(bigSpexButtonIDs), spexTITLE, createDivForSpex(spex))
 
     return spexString
 
@@ -171,16 +173,16 @@ def createYearButton(spex, year):
     yearTITLE = re.sub(r"_.+", " ", year)
     yearTITLE = re.sub(r"[-]*.txt", "", yearTITLE)
 
-    titleBox = '''<button class="sb"
-    style="background-color:#1a1a1a;color:white;text-align:left;font-weight:bold;font-size:20;border-left:2px-solid-red;">{}</button>
-    <div class="empty three"></div>'''.format(yearTITLE)
+    titleBox = '''<div class="sb"
+    style="background-color:#1a1a1a;color:white;text-align:left;font-weight:bold;font-size:20;border-left:2px-solid-red;padding:5px;">{}</div>
+    '''.format(yearTITLE)
 
     return titleBox
 
 def createSongButton(title, text):
     oneSong = '''
       <details class="sb {}">
-        <summary style="list-style: none">{}</summary>
+        <summary style="list-style: none; padding: 5px">{}</summary>
         <div class="song">
             {}
         </div>

@@ -13,7 +13,6 @@
         .sp {
             transition: all 0.4s ease 0s;
             cursor: pointer;
-            padding: 5px;
             width: 100%;
             border: 1px solid #000000 !important;
             text-align: left;
@@ -38,11 +37,13 @@
         }
 
         .one.sb {
+            padding-top: 0;
             background-color: black;
             color: white;
         }
 
         .two.sb {
+            padding-top: 0;
             background-color: white;
             color: black;
         }
@@ -60,7 +61,7 @@
         .sb {
             transition: all 0.4s ease 0s;
             cursor: pointer;
-            padding: 5px;
+            padding: 5px 0 0 0;
             width: 100%;
             border: 1px solid #000000 !important;
             text-align: left;
@@ -71,14 +72,14 @@
 
         .content {
             padding: 3px;
-            display: none;
             overflow: hidden;
             background-color: #000000;
             border-left: 2px solid green;
             border-right: 2px solid green;
             border-top: 2px solid green;
             border-bottom: 2px solid green;
-            border-radius: 10px;
+            border-bottom-left-radius: 9px;
+            border-bottom-right-radius: 9px;
         }
 
         .song {
@@ -90,16 +91,12 @@
             border-right: 2px solid red;
             border-top: 2px solid red;
             border-bottom: 2px solid red;
-            border-radius: 10px;
-        }
-
-        #navbar {
-            overflow: hidden;
-            background-color: #333;
+            border-bottom-left-radius: 9px;
+            border-bottom-right-radius: 9px;
         }
 
         .sticky + .content {
-            padding-top: 0px;
+            padding-top: 0;
         }
 
         h2, h6 {
@@ -119,7 +116,7 @@
     <title>Spärmen</title>
 </head>
 
-<body onscroll="navBar()" class="bg-black">
+<body class="bg-black">
 
 <div class="m-3">
     <p class="text-light fw-bold fs-3" id="pageTitle">Sångpärm</p>
@@ -136,52 +133,6 @@ MONSTERSTRINGHERE
     </a>
 </div>
 <script>
-    const spex = document.querySelectorAll(".sp");
-    const sbs = document.querySelectorAll(".sb");
-    const songs = document.querySelectorAll(".song");
-
-    spex.forEach((sp) => {
-        sp.addEventListener("click", function () {
-            sbs.forEach((sb) => {
-                if (sb.classList.contains("ac")) {
-                    sb.classList.toggle("ac");
-                }
-            });
-
-            spex.forEach((sp) => {
-                if (sp.classList.contains("ac")) {
-                    sp.classList.toggle("ac");
-                }
-            });
-
-            const content = this.nextElementSibling;
-            const temp = content.style.display;
-
-            spex.forEach((sp) => {
-                const content2 = sp.nextElementSibling;
-                content2.style.display = "none";
-            });
-
-            if (temp === "block") {
-                content.style.display = "none";
-            } else {
-                content.style.display = "block";
-            }
-        });
-    });
-
-
-    const navbar = document.getElementById("navbar");
-    const sticky = navbar?.offsetTop;
-
-    function navBar() {
-        if (sticky && window.pageYOffset >= sticky) {
-            navbar.classList.add("sticky")
-        } else {
-            navbar.classList.remove("sticky");
-        }
-    }
-
     //Easter egg
     const pTag = document.getElementById("pageTitle");
     const texts = ['🍍', 'Spermen', '']
@@ -194,7 +145,6 @@ MONSTERSTRINGHERE
             counter = 0;
         }
     });
-
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
