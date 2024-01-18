@@ -85,7 +85,6 @@ def createDivForMain():
         # │ Cyclically add Spex*Button [Title] for expanding Spex*Div [Songs] │
         # └───────────────────────────────────────────────────────────────────┘
         stringDivMain += createBigSpexButton(spex)
-        stringDivMain += createDivForSpex(spex)
 
     # ╒═════════════════════════════════════════╕
     # │ Return Div*Main, the outermost wrapper. │
@@ -105,8 +104,11 @@ def createBigSpexButton(spex):
     # │ ButtonString. Cycles to the next button style (one/two - black/white) │
     # └───────────────────────────────────────────────────────────────────────┘
     spexString = '''
-    <button class="sp {}">{}</button>
-    '''.format(next(bigSpexButtonIDs), spexTITLE)
+    <details class="sp {}">
+        <summary style="list-style: none; padding: 5px">{}</summary>
+        {}
+    </details>
+    '''.format(next(bigSpexButtonIDs), spexTITLE, createDivForSpex(spex))
 
     return spexString
 
@@ -171,39 +173,22 @@ def createYearButton(spex, year):
     yearTITLE = re.sub(r"_.+", " ", year)
     yearTITLE = re.sub(r"[-]*.txt", "", yearTITLE)
 
-    titleBox = '''<button class="sb"
-    style="background-color:#1a1a1a;color:white;text-align:left;font-weight:bold;font-size:20;border-left:2px-solid-red;">{}</button>
-    <div class="empty three"></div>'''.format(yearTITLE)
+    titleBox = '''<div class="sb"
+    style="background-color:#1a1a1a;color:white;text-align:left;font-weight:bold;font-size:20;border-left:2px-solid-red;padding:5px;">{}</div>
+    '''.format(yearTITLE)
 
     return titleBox
 
-def createSongButton(title):
+def createSongButton(title, text):
     oneSong = '''
-      <button class="sb {}">{}</button>
-    '''.format(next(songCycle), title)
-    return oneSong
-
-def createDivForSong(text):
-    '''
-    ╔────────────────────────────────────────────────────────────────────╗
-    │ Song*Div which contains lyrics, melody etc. The innermost wrapper. │
-    ╚────────────────────────────────────────────────────────────────────╝
-    '''
-    
-    # ╒══════════════════════════════════════════════════════════╕
-    # │ class="song" is used for styling purposes with CSS later │
-    # └──────────────────────────────────────────────────────────┘
-    div =  '''
-          <div class="song">
+      <details class="sb {}">
+        <summary style="list-style: none; padding: 5px">{}</summary>
+        <div class="song">
             {}
-          </div> 
-          '''
-    try:
-        div = div.format(text)
-    except:
-        print("createDivForSong failed for:\n {}   {}   {}".format(spex, year, song))
-
-    return div
+        </div>
+      </details>
+    '''.format(next(songCycle), title, text)
+    return oneSong
 
 def createDivForSongs(spex, year):
     sortedSongs = os.listdir(os.path.join(wk_dir, "sparmen", spex, year)) 
@@ -239,8 +224,7 @@ def createDivForSongs(spex, year):
         # ╒════════════════════════════════════════════╕
         # │ Cyclically create Song*Button and Song*Div │
         # └────────────────────────────────────────────┘
-        yearDIV += createSongButton(songTITLE)
-        yearDIV += createDivForSong(songTXT)
+        yearDIV += createSongButton(songTITLE, songTXT)
 
     # ╒════════════════════════════════════════════════════════════════════╕
     # │ spexstring should contain all years - which in turn are in yearDIV │
