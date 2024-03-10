@@ -32,6 +32,9 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+	jsonString := string(jsonTree)
+	jsonString = strings.ReplaceAll(jsonString, "\\n", "<br>")
+	jsonTree = []byte(jsonString)
 	_, err = file.Write(jsonTree)
 	if err != nil {
 		panic(err)
@@ -57,19 +60,13 @@ func buildTree(root string) (interface{}, error) {
 		for i, part := range parts[:len(parts)-1] {
 			if _, ok := node[part]; !ok {
 				node[part] = make(map[string]interface{})
-				// Check if the current directory is a top-level directory or a second-level directory
 				if i < 1 {
-					// Split the directory name by underscore
 					nameParts := strings.Split(part, "_")
-					// Check if there was an underscore to split on
 					if len(nameParts) > 1 {
-						// Create a new map with the key `name` and the value as the directory name without the prefixed number
 						meta := make(map[string]string)
 						meta["number"] = nameParts[0]
 						meta["name"] = strings.Join(nameParts[1:], "_")
-						// Add this map to the `node` map under the key `meta`
 						node[part].(map[string]interface{})["meta"] = meta
-
 					}
 				}
 			}
@@ -79,7 +76,14 @@ func buildTree(root string) (interface{}, error) {
 		if err != nil {
 			return err
 		}
-		node[parts[len(parts)-1]] = string(content)
+		lines := strings.Split(string(content), "\n")
+		if len(lines) > 0 {
+			// Remove the encoded bold tags
+			line := strings.ReplaceAll(lines[0], "\u003cb\u003e", "")
+			line = strings.ReplaceAll(line, "\u003c/b\u003e", "")
+			line = strings.Trim(line, " ")
+			node[line] = string(content)
+		}
 		return nil
 	})
 	if err != nil {
