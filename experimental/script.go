@@ -54,9 +54,24 @@ func buildTree(root string) (interface{}, error) {
 		}
 		parts := strings.Split(relPath, string(filepath.Separator))
 		node := tree
-		for _, part := range parts[:len(parts)-1] {
+		for i, part := range parts[:len(parts)-1] {
 			if _, ok := node[part]; !ok {
 				node[part] = make(map[string]interface{})
+				// Check if the current directory is a top-level directory or a second-level directory
+				if i < 1 {
+					// Split the directory name by underscore
+					nameParts := strings.Split(part, "_")
+					// Check if there was an underscore to split on
+					if len(nameParts) > 1 {
+						// Create a new map with the key `name` and the value as the directory name without the prefixed number
+						meta := make(map[string]string)
+						meta["number"] = nameParts[0]
+						meta["name"] = strings.Join(nameParts[1:], "_")
+						// Add this map to the `node` map under the key `meta`
+						node[part].(map[string]interface{})["meta"] = meta
+
+					}
+				}
 			}
 			node = node[part].(map[string]interface{})
 		}
