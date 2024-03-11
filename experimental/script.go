@@ -82,7 +82,10 @@ func buildTree(root string) (interface{}, error) {
 			line := strings.ReplaceAll(lines[0], "\u003cb\u003e", "")
 			line = strings.ReplaceAll(line, "\u003c/b\u003e", "")
 			line = strings.Trim(line, " ")
-			node[line] = string(content)
+			fileMap := make(map[string]string)
+			fileMap["name"] = line
+			fileMap["text"] = string(content)
+			node[filepath.Base(path)] = fileMap
 		}
 		return nil
 	})
