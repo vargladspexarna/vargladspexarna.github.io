@@ -8,7 +8,7 @@ from importlib import reload
 import utility.misc
 reload(utility.misc)
 
-replaceaao = utility.misc.replaceaao
+replaceaao = utility.misc.replaceaao   #replaceåäö
 fix_youtube_url = utility.misc.fix_youtube_url
 extractNum = utility.misc.extractNum
 
@@ -53,7 +53,7 @@ def getSpexSets(spex):
     string_part_sets += ")"
 
     # ╒══════════════════════════════════════════════════════════════════════════╕
-    # │ RexEx to transform naming convention in 'sparmen/spex' to shorter format │
+    # │ RegEx to transform naming convention in 'sparmen/spex' to shorter format │
     # └──────────────────────────────────────────────────────────────────────────┘
     string_part_sets = re.sub(r"Kivik", "S", string_part_sets)
     string_part_sets = re.sub(r"Karnevalen", "K", string_part_sets)
@@ -174,7 +174,7 @@ def createYearButton(spex, year):
     yearTITLE = re.sub(r"[-]*.txt", "", yearTITLE)
 
     titleBox = '''<div class="sb"
-    style="background-color:#1a1a1a;color:white;text-align:left;font-weight:bold;font-size:20;border-left:2px-solid-red;padding:5px;">{}</div>
+    style="background-color:#1a1a1a;color:white;text-align:left;font-weight:bold;font-size:20;border-left:2px-solid-red;padding:5px;margin-left:0px;">{}</div>
     '''.format(yearTITLE)
 
     return titleBox
